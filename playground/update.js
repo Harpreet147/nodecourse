@@ -54,7 +54,10 @@ MongoClient.connect("mongodb://localhost:27017", (err, client) => {
             text: 'find and update',
             completed: true
         }
-    })
+
+    }, {
+        returnOriginal: false
+        })
         .then((doc) => {
             console.log(doc);
             return;
