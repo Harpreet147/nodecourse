@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const { todo } = require('./model/todos');
 const bodyParser = require("body-parser");
-const ObjectID = require('mongodb');
+const {ObjectID} = require('mongodb');
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
@@ -31,6 +31,17 @@ app.get("/todo", (req, res) => {
     }, (e) => {
         res.status(400).send(e);
     }).catch((e) => {
+        res.status(500).send(e);
+    })
+});
+app.get("/todo/:id",(req,res)=>{
+    const id = req.params.id;
+    if(!ObjectID.isValid(id)){
+        res.status(500).send('id is not valid');
+    }
+    todo.findById(id).then((doc)=>{
+        res.status(200).send(doc);
+    },(e)=>{
         res.status(500).send(e);
     })
 })
