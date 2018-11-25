@@ -6,13 +6,14 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
-    res.send("app works!");
+    res.status(200).send("app works!");
 })
 app.post("/todo", (req, res) => {
     const text = req.body.text;
+    const completed = req.body.completed;
     const newTodo = new todo({
         text: text,
-        completed: false,
+        completed: completed,
         completedAt: 123
     });
 
@@ -27,3 +28,5 @@ app.post("/todo", (req, res) => {
 app.listen(3000, () => {
     console.log("port listen at 3000");
 })
+
+module.exports={app};
