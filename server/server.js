@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const {todo} = require('./model/todos');
+const { todo } = require('./model/todos');
 const bodyParser = require("body-parser");
 
 app.use(bodyParser.json());
@@ -25,8 +25,17 @@ app.post("/todo", (req, res) => {
         res.status(500).send(e);
     })
 })
+app.get("/todo", (req, res) => {
+    todo.find().then((docs) => {
+        res.status(400).send({docs});
+    }, (e) => {
+        res.status(200).send(e);
+    }).catch((e) => {
+        res.status(500).send(e);
+    })
+})
 app.listen(3000, () => {
     console.log("port listen at 3000");
 })
 
-module.exports={app};
+module.exports = { app };
