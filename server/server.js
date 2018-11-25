@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const { todo } = require('./model/todos');
 const bodyParser = require("body-parser");
-
+const ObjectID = require('mongodb');
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
@@ -27,7 +27,7 @@ app.post("/todo", (req, res) => {
 })
 app.get("/todo", (req, res) => {
     todo.find().then((docs) => {
-        res.status(200).send({docs});
+        res.status(200).send({ docs });
     }, (e) => {
         res.status(400).send(e);
     }).catch((e) => {
